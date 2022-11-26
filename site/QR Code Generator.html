@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>GR Code Generator</title>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="QRCodeGenerator_files/styles.css" rel="stylesheet">
+    <link href="QRCodeGenerator_files/css2" rel="stylesheet">
+    <script src="QRCodeGenerator_files/jquery.min.js"></script>
+    <script src="QRCodeGenerator_files/jquery-qrcode-0.18.0.js"></script>
+    <script src="QRCodeGenerator_files/scripts.js"></script>
+    <script src="QRCodeGenerator_files/jspdf.debug.js"></script>
+  </head>
+  <body>
+    <div id="container"><canvas width="400" height="400"></canvas></div>
+    <div class="control left">
+      <a id="banner">QR code Generator By Abdul for Giroux Glass</a>
+      <hr>
+      <label for="text">Link</label>
+      <textarea id="text" placeholder="Enter files link "></textarea>
+      <label for="label">Label</label>
+      <input id="label" type="text" placeholder="Door # ">
+      <label for="size">QR SIZE: 400px</label>
+      <input id="size" type="range" value="400" min="100" max="1000" step="50">
+      <label for="fill">FILL</label>
+      <input id="fill" type="color" value="#333333">
+      <label for="background">QR BACKGROUND</label>
+      <input id="background" type="color" value="#ffffff">
+
+      
+      <hr>
+      <label for="render">RENDER MODE</label>
+      <select id="render">
+        <option value="canvas" selected="selected">canvas</option>
+        
+      
+      </select>
+      <hr>
+      <input id="minversion" type="range" value="6" min="1" max="10" step="1">
+      
+      <select id="eclevel">
+        <option value="L">L - Low (7%)</option>
+        <option value="M">M - Medium (15%)</option>
+        <option value="Q">Q - Quartile (25%)</option>
+        <option value="H" selected="selected">H - High (30%)</option>
+      </select>
+      <label for="quiet">QUIET ZONE: 1 modules</label>
+      <input id="quiet" type="range" value="1" min="0" max="4" step="1">
+      <label for="radius">CORNER RADIUS: 50%</label>
+      <input id="radius" type="range" value="50" min="0" max="50" step="10">
+    </div>
+    <div class="control right">
+        <a id="banner">Label Controls </a>
+      <label for="mode">MODE</label>
+      <select id="mode">
+        <option value="0">0 - Normal</option>
+        <option value="1">1 - Label-Strip</option>
+        <option value="2" selected="selected">2 - Label-Box</option>
+        <option value="3">3 - Image-Strip</option>
+        <option value="4">4 - Image-Box</option>
+      </select>
+      <hr>
+      <label for="msize">SIZE: 11%</label>
+      <input id="msize" type="range" value="11" min="0" max="40" step="1">
+      <label for="mposx">POS X: 50%</label>
+      <input id="mposx" type="range" value="50" min="0" max="100" step="1">
+      <label for="mposy">POS Y: 50%</label>
+      <input id="mposy" type="range" value="50" min="0" max="100" step="1">
+      <hr>
+
+      <label for="font">FONT NAME</label>
+      <input id="font" type="text" value="Ubuntu Mono">
+      <label for="fontcolor">FONT COLOR</label>
+      <input id="fontcolor" type="color" value="#ff9818">
+      <hr>
+      <label for="image">IMAGE</label>
+      <input id="image" type="file">
+      <hr>
+
+    </div>
+   
+    <div>
+        <a id="download" download="QR.png">
+            <button type="button" onclick="DownloadCanvasAsImage()">Download</button>
+            </a>
+    </div>
+    <script>
+
+
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'red';
+    ctx.fillRect(0,0,100,100);
+    ctx.lineWidth = 10;
+    ctx.strokeRect(20, 20, 60, 60);
+
+    function DownloadCanvasAsImage(){
+        let downloadLink = document.createElement('a');
+        downloadLink.setAttribute('download', 'door# '+ document.getElementById("label").value+'.png');
+        let canvas = $("#container").children(":first")[0];;
+    let dataURL = canvas.toDataURL('image/png');
+    let url = dataURL.replace(/^data:image\/png/,'data:application/octet-stream');
+        downloadLink.setAttribute('href',url);
+        downloadLink.click();
+    }
+          
+        
+    </script>
+  
+
+</body></html>
